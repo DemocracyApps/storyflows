@@ -16,7 +16,7 @@ The StoryFlows system is composed of several simple pieces:
 * [Flow](flow.md) - The StoryFlow structure, which refers to cards
 * Card Editor - The card authoring component
 * [Flow Editor](floweditor.md) - The flow authoring component
-* Presenter - The component that displays a story and interacts with a user
+* [Presenter](presenter.md) - The component that displays a story and interacts with a user
 
 A key part of the philosophy of StoryFlows is that each of these components interacts with the others through a well-defined API so that third-party components may be easily swapped for the native ones. Where appropriate, these components are also designed to be easily extensible.
 
