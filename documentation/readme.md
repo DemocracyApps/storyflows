@@ -1,4 +1,4 @@
 # Storylines
 This is the documentation for StoryLines.
 
-* [Cards](cards)
+* [Cards](cards.md)
