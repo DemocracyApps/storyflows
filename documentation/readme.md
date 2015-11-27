@@ -12,7 +12,7 @@ Creating and presenting such interactive story flows is the purpose of StoryFlow
 The StoryFlows system is composed of several simple pieces:
 
 * [Cards & Cardsets](cards.md) - The StoryFlow content structure
-* Card Provider - A source from which we can fetch card data
+* [Card Provider](cardprovider.md) - A source from which we can fetch card data
 * [Flow](flow.md) - The StoryFlow structure, which refers to cards
 * [Card Editor](cardeditor.md) - The card authoring component
 * [Flow Editor](floweditor.md) - The flow authoring component
