@@ -14,7 +14,7 @@ The StoryFlows system is composed of several simple pieces:
 * [Cards & Cardsets](cards.md) - The StoryFlow content structure
 * Card Provider - A source from which we can fetch card data
 * [Flow](flow.md) - The StoryFlow structure, which refers to cards
-* Card Editor - The card authoring component
+* [Card Editor](cardeditor.md) - The card authoring component
 * [Flow Editor](floweditor.md) - The flow authoring component
 * [Presenter](presenter.md) - The component that displays a story and interacts with a user
 
