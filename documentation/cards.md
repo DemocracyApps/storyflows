@@ -18,10 +18,15 @@ A card record consists of the following:
 In the simplest case, the card body is simply a block of plain text, Markdown or HTML that is to be interpreted/used by a presentation component that uses it. However, in order to offer truly interactive story flows, we need to be able to use input and output controls in the body of the card.
 
 ### Input Controls
-Still a lot to think through here, but we will obviously be using normal web controls with Javascript actions. The main job of the Javascript actions will be to call _action creators_ that will dispatch actions with the appropriate parameters (in the native implementation, using [Redux](https://github.com/rackt/redux)). There are 3 types of actions that may be triggered:
+Still a lot to think through here, but we will obviously be using normal web controls with Javascript actions. The main job of the Javascript actions will be to call _action creators_ that will dispatch actions with the appropriate parameters (in the native implementation, using [Redux](https://github.com/rackt/redux)). There are just a few types of actions that may be triggered:
 1. __NEXT__: Advance to the next card in the current sequence
-2. __BRANCH (value)__: Branch to another card based on the provided value
-3. __JUMP (card_id)__: Jump to the specified card
+2. __PREVIOUS__: Advance to the previous card in the current sequence (or __RETURN__ if we are at the first card)
+3. __FIRST__: Rewind to the first card in the current sequence
+4. __LAST__: Advance to the last card in the current sequence
+5. __RESTART__: Go back to the very beginning of the StoryFlow flow
+6. __RETURN__: Go back to the last branch slide (or __RESTART__ if there wasn't one)
+7. __BRANCH (value)__: Branch to another card based on the provided value
+8. __JUMP (card_id)__: Jump to the specified card
 
 These commands pertain to the [Flow](flow.md) component of the StoryFlows system.
 
