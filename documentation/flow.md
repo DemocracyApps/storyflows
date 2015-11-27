@@ -12,5 +12,5 @@ A sequence step contains the following information:
 ## Branches
 A _branch_ associates a value obtained from the user with a step ID to branch to. There are a couple of obvious branch types:
 * KeyMap - this is a set of branchValue:stepId pairs that associate a value from a __BRANCH__ action with a step ID to move to.
-* RangeMap - this is a set of range:stepId apirs that associate a numerical range with a step ID. It is assumed that the _BRANCH__ action value will be a number that maps to one of the ranges (if it maps to more than one, the first match is used).
+* RangeMap - this is a set of range:stepId pairs that associate a numerical range with a step ID. It is assumed that the _BRANCH_ action value will be a number that maps to one of the ranges (if it maps to more than one, the first match is used).
 
