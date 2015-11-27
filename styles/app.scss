@@ -1,0 +1,152 @@
+
+span.error {
+  color: #f00;
+}
+.menu ul {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+li.menu {
+  display: inline-block;
+  font-weight: bold;
+}
+/*        table th, table td {
+          border:1px solid black; padding:10px;
+        }
+        table#short-table th, table#short-table td {
+          border:1px solid black; padding:10px;
+        }
+        table#long-table th, table#long-table td {
+          border:1px solid black; padding:3px;
+        }
+        table#simple-table, table#simple-table th, table#simple-table td {
+          border:0px solid white; padding:3px;
+        }*/
+
+/*
+ * Autocompletion
+ */
+
+/* highlight results */
+.ui-autocomplete span.hl_results {
+  background-color: #ffff66;
+}
+
+.bs-header{
+  padding: 20px 0px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+  background: #fcfcfc;
+}
+
+/* scroll results */
+.ui-autocomplete {
+  max-height: 250px;
+  overflow-y: auto;
+  /* prevent horizontal scrollbar */
+  overflow-x: visible;
+  /* add padding for vertical scrollbar */
+  padding-right: 5px;
+}
+
+.ui-autocomplete li {
+  font-size: 16px;
+}
+
+/* IE 6 doesn't support max-height
+* we use height instead, but this forces the menu to always be this tall
+*/
+* html .ui-autocomplete {
+  height: 250px;
+}
+
+.ui-menu .ui-menu-item {
+  height:18px;
+  font-size:14px;
+  background:white;
+}
+
+/* STYLES TO MAKE IT NICER LOOKING */
+
+div.presentation {
+  font-size: 110%;
+}
+
+div.component-div {
+  padding:0px;
+}
+
+.bar.positive {
+  fill: steelblue;
+}
+
+.bar.negative {
+  fill: brown;
+}
+
+.bartext {
+  font-size: 90%;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+.axis path,
+.axis line {
+  fill: #000;
+  stroke: #000;
+  stroke-width:1;
+  shape-rendering: crispEdges;
+}
+
+.card-table-header > div{
+  color: #666;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+.card-table h4{
+  margin-top: 0px;
+}
+
+.card-table .card-table-header{
+  margin-top: 20px;
+}
+.card-table .inner{
+  padding-bottom: 30px;
+}
+.card-table-row{
+  margin-right: 15px;
+  margin-left: 15px;
+}
+.card{
+  padding-bottom: 40px;
+}
+
+/* Move the controls closer to the pics */
+
+.flexslider {
+  margin: 0 0 10px;
+}
+
+/* Bar chart tooltip */
+.bar-tooltip {
+  background: #eee;
+  box-shadow: 0 0 5px #999999;
+  color: #333;
+  display: none;
+  font-size: 12px;
+  left: 0px;
+  padding: 10px;
+  position: absolute;
+  text-align: left;
+  top: 0px;
+  width: 250px;
+  height: 150px;
+  z-index: 10;
+}
+
+.bar-text {
+  font-size: 12px;
+}
+
