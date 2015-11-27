@@ -6,7 +6,8 @@ A card record consists of the following:
 3. image - the URL of an image
 4. link - a valid hyperlink
 5. cardset - the id of a cardset to which the card belongs
-6. ordinal - the index of the card in the cardset (see note below)
+6. ordinal - the index of the card in the cardset
+  * Note: the use of _ordinal_ in the Card record reflects the Community Budget Explorer platform implementation. It may make more sense to let the Cardset store an ordered list of card ids and drop the _cardset_ field so that a card could be used in multiple cardsets.
 7. meta - a JSON object with information used to edit and process the card. This may include:
   1. Content type
   2. Required preprocessors
@@ -20,4 +21,3 @@ In the simplest case, the card body is simply a block of plain text, Markdown or
 ### Input Controls
 
 
-**NOTE**: The use of __ordinal__ in the Card record reflects the current design in the Community Budget Explorer platform. It may make more sense to let the Cardset store the ordered list of card ids. If we do that we should probably not store the cardset ID and leave open the option of having a card belong to multiple cardsets.
