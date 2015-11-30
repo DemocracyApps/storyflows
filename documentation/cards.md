@@ -1,33 +1,30 @@
 # Cards & Cardsets
+## Cards
 A card record consists of the following:
 
 1. title
 2. body - content of the card; see below for how presentation is determined
 3. image - the URL of an image
 4. link - a valid hyperlink
-5. meta - a JSON object with information used to edit and process the card. This may include:
-  1. Content type
-  2. Required preprocessors
-  3. CSS link
-  4. ?
-6. cardset - the id of a cardset to which the card belongs
+5. meta - a JSON object that stores information for editing and processing the card. Examples include:
+  1. Content type and required preprocessors
+  2. Variables
+  4. Link to custom CSS
+6. cardset - the id of the cardset to which the card belongs
 7. ordinal - the index of the card in the cardset
-  * Note: the use of _ordinal_ in the Card record reflects the Community Budget Explorer platform implementation. It may make more sense to let the Cardset store an ordered list of card ids and drop the _cardset_ field so that a card could be used in multiple cardsets.
 
-## Card Body
-In the simplest case, the card body is simply a block of plain text, Markdown or HTML that is to be interpreted/used by a presentation component that uses it. However, in order to offer truly interactive story flows, we need to be able to use input and output controls in the body of the card.
+In the simplest case, the card body is simply a block of plain text, Markdown or HTML that is to be interpreted/used by a presentation component that uses it. However, in order to offer truly interactive story flows, we need to be able to use input and output controls in the body of the card. The controls used will probably be reflected in information in the _meta_ field, but from the standpoint of the card system itself, the body is just a blob of content.
 
-### Input Controls
-Still a lot to think through here, but we will obviously be using normal web controls with Javascript actions. The main job of the Javascript actions will be to call _action creators_ that will dispatch actions with the appropriate parameters (in the native implementation, using <a href="https://github.com/rackt/redux" target="_blank">Redux</a>. There are just a few types of actions that may be triggered:
+## Cardsets
+Cards are organized in _cardsets_, which are nothing more than an ordered collection of cards. 
 
-1. __NEXT__: Advance to the next step in the current sequence
-2. __PREVIOUS__: Advance to the previous step in the current sequence (or __RETURN__ if we are at the first step)
-3. __FIRST__: Rewind to the first step in the current sequence
-4. __LAST__: Advance to the last step in the current sequence
-5. __RESTART__: Go back to the very beginning of the StoryFlow flow
-6. __RETURN__: Go back to the last branch step (or __RESTART__ if there wasn't one)
-7. __BRANCH (value)__: Branch to another sequence based on the provided value
-8. __JUMP (card_id)__: Jump to the specified sequence
+In the current CBE collection, a card belongs to one and only one cardset and order information is stored in the _ordinal_ field of the card. We may wish to change this and have a cardset simply store the list of card ids so that multiple cardsets could share the same card. If we do this, it implies that a card could be independent of any cardset. I'm not thrilled with that ID, but we can effectively avoid it just by not allowing the interface to cause it, while retaining the option later.
 
-These commands pertain to the [Flow](flow.md) component of the StoryFlows system.
+My feeling is that StoryFlows will only work with cardsets, not individual cards.
+
+## Card Provider
+
+Cards should be provided to the StoryFlows system from an outside service, either the current data server or, more likely, by a separate card server service. In any case, it should be separate from the CBE.
+
+We also need a local version that lets a developer (or presenter) create a story flow and cards on a laptop without the need for any server components.
 
