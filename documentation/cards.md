@@ -20,14 +20,14 @@ In the simplest case, the card body is simply a block of plain text, Markdown or
 ### Input Controls
 Still a lot to think through here, but we will obviously be using normal web controls with Javascript actions. The main job of the Javascript actions will be to call _action creators_ that will dispatch actions with the appropriate parameters (in the native implementation, using <a href="https://github.com/rackt/redux" target="_blank">Redux</a>. There are just a few types of actions that may be triggered:
 
-1. __NEXT__: Advance to the next card in the current sequence
-2. __PREVIOUS__: Advance to the previous card in the current sequence (or __RETURN__ if we are at the first card)
-3. __FIRST__: Rewind to the first card in the current sequence
-4. __LAST__: Advance to the last card in the current sequence
+1. __NEXT__: Advance to the next step in the current sequence
+2. __PREVIOUS__: Advance to the previous step in the current sequence (or __RETURN__ if we are at the first step)
+3. __FIRST__: Rewind to the first step in the current sequence
+4. __LAST__: Advance to the last step in the current sequence
 5. __RESTART__: Go back to the very beginning of the StoryFlow flow
-6. __RETURN__: Go back to the last branch slide (or __RESTART__ if there wasn't one)
-7. __BRANCH (value)__: Branch to another card based on the provided value
-8. __JUMP (card_id)__: Jump to the specified card
+6. __RETURN__: Go back to the last branch step (or __RESTART__ if there wasn't one)
+7. __BRANCH (value)__: Branch to another sequence based on the provided value
+8. __JUMP (card_id)__: Jump to the specified sequence
 
 These commands pertain to the [Flow](flow.md) component of the StoryFlows system.
 
