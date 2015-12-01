@@ -18,8 +18,8 @@ A sequence step definition consists of:
 1. ID of the card that provides its content (this can be undefined while a sequence is being constructed, but obviously doesn't make sense to leave undefined for actual presentation)
 2. Variables - a list of variable definitions and initial values that should be associated with this step in the system state (optional, see below)
 3. Branch - this optional structure associates a value obtained from the user (see input controls) with a step to branch to. There are at least two branch types:
-  * _KeyMap_ - this is a simple set of value-to-stepId pairs, where values probably map to a set of choices a user may make at this step.
-  * _RangeMap_ - this is a set of rage-to-stepId pairs that associate a numerical range of the input value with a step ID to move to. If the value maps to more than one of the ranges, the first match is used.
+  * _KeyMap_ - this is a simple set of value-to-step pairs, where values probably map to a set of choices a user may make at this step.
+  * _RangeMap_ - this is a set of rage-to-step pairs that associate a numerical range of some input value with a step ID to move to. If the value maps to more than one of the ranges, the first match is used. The value is probably one input by a user as part of the interaction with the associated card.
 
 ## The System State
 The system state is used by the [Presenter](presenter.md), but it's structure is defined as part of the Flow module. It stores the current state of a StoryFlows presentation in several namespaces:
@@ -46,7 +46,7 @@ All changes to system state occur via _actions_. An action is simply an object c
 ```
 This might be actually called using a function like _setSequenceVariable(12, "name", "Rahim")_.
 
-In the native implementation, we using <a href="https://github.com/rackt/redux" target="_blank">Redux</a>. The following section details some of the actions which may be triggered.
+In the native implementation, we use <a href="https://github.com/rackt/redux" target="_blank">Redux</a>. The following section details some of the actions which may be triggered.
 
 #### List of Actions
 
