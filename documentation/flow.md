@@ -2,6 +2,7 @@
 ## Introduction
 A StoryFlows flow is a collection of _sequences_ connected by branches and jumps. This together with a _state_ space comprises an entire StoryFlows system.
 
+## Sequences and Steps
 ### Sequence
 A sequence is a linear flow of content, with individual items of the sequence designated _sequence steps_. Each step corresponds to a [card](cards.md). A sequence consists of:
 
@@ -20,16 +21,15 @@ A sequence step definition consists of:
   * _KeyMap_ - this is a simple set of value-to-stepId pairs, where values probably map to a set of choices a user may make at this step.
   * _RangeMap_ - this is a set of rage-to-stepId pairs that associate a numerical range of the input value with a step ID to move to. If the value maps to more than one of the ranges, the first match is used.
 
-### State
-The state of the system consists of a few global variables that track the current position and history, individual namespaces for each sequence and step that may be used by a flow, and shared-namespaces area where flows may create and share variables. The state is immutable - it may only be changed by creating and dispatching _actions_ (see details below).
-
 ## The System State
-The system state is stored as a single immutable object that may be modified via _actions_. The object is a map containing the following keys:
+The system state is used by the [Presenter](presenter.md), but it's structure is defined as part of the Flow module. It stores the current state of a StoryFlows presentation in several namespaces:
 
-* global - all system-global values are stored here
-* sequences - a map of namespaces corresponding to individual sequences (keyed by ID)
-* steps - a map of namespaces corresponding to individual cards (keyed by sequence ID + index))
+* global - all system-global values are stored here, e.g., the current position
+* sequences - a map of namespaces where individual sequences may create and store values
+* steps - a map of namespaces where individual steps may create and store values
 * named - a map of named shared namespaces that may be created by variable definitions in sequences or steps
+
+The system state is a single immutable object that may only be modified via _actions_. 
 
 ### Actions
 All changes to system state occur via _actions_. An action is simply an object containing the action type and any parameters needed by the action. Actions are dispatched using _action creators_, a set of functions that are made available to the system. As a concrete example, an input from a user may be used to set the value of a variable in the sequence namespace. The action would be something like:
@@ -45,7 +45,6 @@ All changes to system state occur via _actions_. An action is simply an object c
  }
 ```
 This might be actually called using a function like _setSequenceVariable(12, "name", "Rahim")_.
-
 
 ## Card Body Content
 
