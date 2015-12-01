@@ -5,21 +5,15 @@ This is the documentation for StoryFlows.
 
 When we wish to convey information to some sort of audience, a common approach is to present it as a logical sequence of discrete chunks of information, typically some text and images, as in a traditional slide presentation. Done well, the sequence is organized to tell a story in a way that engages the audience and helps them to make sense of the overall message or topic. Such a sequential set of information blocks is the simplest sort of story flow.
 
-However, when the audience consists of a single user and that person can interact with the presentation, we may wish to modify the sequence based on what she tells us. This allows us to skip irrelevant parts and tailor the story we are telling to this particular person. In this case the particular story flow is generated from a larger structure that allows branching and jumping based on information the user provides or choices she makes.
+However, when the audience consists of a single user who can interact with the presentation, we may wish to modify the sequence based on what she tells us. We may skip irrelevant parts and tailor the story we tell to this particular person. In this case the story flow is generated from a larger structure that allows branching and jumping based on information the user provides or choices she makes.
 
 Creating and presenting such interactive story flows is the purpose of StoryFlows.
 
-The StoryFlows system is composed of several simple pieces:
+The StoryFlows system is composed of several simple pieces: _cards_ that hold the content to be presented, a _flow_ structure that defines all the possible pathways through the content, a _presenter_ that actually delivers the content flow to a user, and _editors_ for authoring the content and flow structure. These pieces are loosely coupled through well-defined APIs so that individual pieces may be swapped out for alternative implementations. This eases long-term maintenance of the system, but also enables third-party wrappers and replacements for any part of the system.
 
-* [Cards & Cardsets](cards.md) - The StoryFlow content
+* [Cards](cards.md) - The StoryFlow content
 * [Flow](flow.md) - The StoryFlow structure, which refers to cards
 * [Card Editor](cardeditor.md) - The card authoring component
 * [Flow Editor](floweditor.md) - The flow authoring component
 * [Presenter](presenter.md) - The component that displays a story and interacts with a user
 
-A key part of the philosophy of StoryFlows is that each of these components interacts with the others through a well-defined API so that third-party components may be easily swapped for the native ones. Where appropriate, these components are also designed to be easily extensible.
-
-### StoryFlows Content: Cards
-
-
-* [Cards](cards.md)

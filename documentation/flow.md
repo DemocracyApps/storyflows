@@ -1,13 +1,10 @@
 # Flow
 
-A StoryFlows flow is a collection of _sequences_ that are connected by branches and jumps.
+A StoryFlows flow is a collection of _sequences_ connected by _branches_ and _jumps_. This together with a _state_ space comprises an entire StoryFlows system.
 
-_Sequences_ define linear flows of content, with individual items of the sequence designated _steps_. Each step has a unique ID, as does each sequence.
+_Sequences_ are linear flows of content, with individual items of the sequence designated _steps_. Each step corresponds to a [card](cards.md). A sequence is nothing more than an ID plus an array of _steps_.
 
-A sequence step contains the following information:
-* ID
-* Card ID - the content associated with the current step
-* Branch - an optional object that provides branching information based on a value obtained from interaction with a user (see details in next section).
+Each sequence step contains the ID of the corresponding card and an optional branch object that provides branching information based on a value obtained from interaction with a user (see details below).
 
 ## Branches
 A _branch_ associates a value obtained from the user with a step ID to branch to. There are a couple of obvious branch types:
