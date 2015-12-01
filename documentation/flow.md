@@ -3,6 +3,7 @@
 A StoryFlows flow is a collection of _sequences_ connected by branches and jumps. This together with a _state_ space comprises an entire StoryFlows system.
 
 A _sequence_ is a linear flow of content, with individual items of the sequence designated _sequence steps_. Each step corresponds to a [card](cards.md). A sequence consists of:
+
 1. ID (required, unique)
 2. Name (required)
 3. Description (optional)
@@ -10,6 +11,7 @@ A _sequence_ is a linear flow of content, with individual items of the sequence 
 5. Variables - a list of variable definitions and initial values that should be associated with this sequence in the system state (optional, see below)
 
 A _sequence step_ definition consists of:
+
 1. ID of the card that provides its content (this can be undefined while a sequence is being constructed, but obviously doesn't make sense to leave undefined for actual presentation)
 2. Variables - a list of variable definitions and initial values that should be associated with this step in the system state (optional, see below)
 3. Branch - a list of branches that may be taken from this step based on a value obtained from the user (optional, see below)
@@ -18,6 +20,7 @@ The _state_ of the system consists of a few global variables that track the curr
 
 ## The System State
 The system state is stored as a single immutable object that may be modified via _actions_. The object is a map containing the following keys:
+
 * global - all system-global values are stored here
 * sequences - a map of namespaces corresponding to individual sequences (keyed by ID)
 * steps - a map of namespaces corresponding to individual cards (keyed by sequence ID + index))
