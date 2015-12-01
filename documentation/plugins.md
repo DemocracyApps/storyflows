@@ -16,4 +16,5 @@ There are a couple ways we can approach representing output controls and complex
            value = <StoryFlowsValue type="sequence" name="userName"/>.</p>
     </div>
 ```
+This is probably the best way to go, but we need to think through where we register the definitions of such elements, how we extend TinyMCE to allow them, etc.
 
