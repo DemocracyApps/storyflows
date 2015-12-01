@@ -6,6 +6,8 @@ _Sequences_ are linear flows of content, with individual items of the sequence d
 
 Each _sequence step_ contains the ID of the corresponding card and an optional branch object that provides branching information based on a value obtained from interaction with a user (see details below).
 
+The _state_ of the system consists of a few global variables that track the current position and history, individual namespaces for each sequence and step that may be used by a flow, and shared-namespaces area where flows may create and share variables. The state is immutable - it may only be changed by creating and dispatching _actions_ (see details below).
+
 ## Branches
 A _branch_ associates a value obtained from the user with a step ID to branch to. There are a couple of obvious branch types:
 * KeyMap - this is a set of branchValue:stepId pairs that associate a value from a __BRANCH__ action with a step ID to move to.
