@@ -11,9 +11,9 @@ A card consists of the following fields:
   4. Link to custom CSS
 6. Group tag/ID (optional) - allows a set of cards to be grouped together for easier retrival (e.g., CBE cardsets)
 
-In the simplest case, the card body is simply a block of plain text, Markdown or HTML that is to be interpreted/used by a presentation component that uses it. 
+In the simplest case, the card body is simply a block of plain text, Markdown or HTML that is to be interpreted by a presentation component that uses it. 
 
-However, in order to offer truly interactive story flows, we need to be able to use input and output controls in the body of the card. The controls used will probably be reflected in information in the _meta_ field, but from the standpoint of the card system itself, the body is just a blob of content.
+However, in order to offer truly interactive story flows, we need to be able to use input and output controls in the body of the card. These are described in the section on [card plugins](plugins.md).
 
 ## Card Provider
 
