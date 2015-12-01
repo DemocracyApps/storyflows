@@ -2,7 +2,8 @@
 ## Introduction
 A StoryFlows flow is a collection of _sequences_ connected by branches and jumps. This together with a _state_ space comprises an entire StoryFlows system.
 
-A _sequence_ is a linear flow of content, with individual items of the sequence designated _sequence steps_. Each step corresponds to a [card](cards.md). A sequence consists of:
+### Sequence
+A sequence is a linear flow of content, with individual items of the sequence designated _sequence steps_. Each step corresponds to a [card](cards.md). A sequence consists of:
 
 1. ID (required, unique)
 2. Name (required)
@@ -10,13 +11,17 @@ A _sequence_ is a linear flow of content, with individual items of the sequence 
 4. Steps - array of _steps_
 5. Variables - a list of variable definitions and initial values that should be associated with this sequence in the system state (optional, see below)
 
-A _sequence step_ definition consists of:
+### Sequence Step
+A sequence step definition consists of:
 
 1. ID of the card that provides its content (this can be undefined while a sequence is being constructed, but obviously doesn't make sense to leave undefined for actual presentation)
 2. Variables - a list of variable definitions and initial values that should be associated with this step in the system state (optional, see below)
-3. Branch - a list of branches that may be taken from this step based on a value obtained from the user (optional, see below)
+3. Branch - this optional structure associates a value obtained from the user (see input controls) with a step to branch to. There are at least two branch types:
+  * _KeyMap_ - this is a simple set of value-to-stepId pairs, where values probably map to a set of choices a user may make at this step.
+  * _RangeMap_ - this is a set of rage-to-stepId pairs that associate a numerical range of the input value with a step ID to move to. If the value maps to more than one of the ranges, the first match is used.
 
-The _state_ of the system consists of a few global variables that track the current position and history, individual namespaces for each sequence and step that may be used by a flow, and shared-namespaces area where flows may create and share variables. The state is immutable - it may only be changed by creating and dispatching _actions_ (see details below).
+### State
+The state of the system consists of a few global variables that track the current position and history, individual namespaces for each sequence and step that may be used by a flow, and shared-namespaces area where flows may create and share variables. The state is immutable - it may only be changed by creating and dispatching _actions_ (see details below).
 
 ## The System State
 The system state is stored as a single immutable object that may be modified via _actions_. The object is a map containing the following keys:
@@ -40,11 +45,6 @@ All changes to system state occur via _actions_. An action is simply an object c
  }
 ```
 This might be actually called using a function like _setSequenceVariable(12, "name", "Rahim")_.
-
-## Branches
-A _branch_ associates a value obtained from the user with a step ID to branch to. There are a couple of obvious branch types:
-* KeyMap - this is a set of branchValue:stepId pairs that associate a value from a __BRANCH__ action with a step ID to move to.
-* RangeMap - this is a set of range:stepId pairs that associate a numerical range with a step ID. It is assumed that the _BRANCH_ action value will be a number that maps to one of the ranges (if it maps to more than one, the first match is used).
 
 
 ## Card Body Content
