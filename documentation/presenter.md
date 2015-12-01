@@ -1,6 +1,6 @@
 # Presenter
-A couple things that need to be true.
+This is relatively straightforward, once all the other elements are in place.
 
-First, it should be possible to run locally on your laptop. Initially we can run as a node program, but that's not especially usable in the long term.
+Note that we want to be able to run this not only off a website, but locally on a laptop. We'll set it up to run through Node initially, which works fine from a development perspective, but not usable by others in the long term.
 
-Second, it obviously needs to be possible to include easily in third-party sites.
+Note that a key requirement for the presenter is that it needs to be easy to include in third-party sites. Iframing in is one simple way, but it would be good to allow it be integrated into other code as well.
