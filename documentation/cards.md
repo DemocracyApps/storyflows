@@ -9,6 +9,7 @@ A card consists of the following fields:
   1. Content type and required preprocessors
   2. Variables
   4. Link to custom CSS
+6. Group tag/ID (optional) - allows a set of cards to be grouped together for easier retrival (e.g., CBE cardsets)
 
 In the simplest case, the card body is simply a block of plain text, Markdown or HTML that is to be interpreted/used by a presentation component that uses it. 
 

@@ -1,12 +1,42 @@
 # Flow
+## Introduction
+A StoryFlows flow is a collection of _sequences_ connected by branches and jumps. This together with a _state_ space comprises an entire StoryFlows system.
 
-A StoryFlows flow is a collection of _sequences_ connected by _branches_ and _jumps_. This together with a _state_ space comprises an entire StoryFlows system.
+A _sequence_ is a linear flow of content, with individual items of the sequence designated _sequence steps_. Each step corresponds to a [card](cards.md). A sequence consists of:
+1. ID (required, unique)
+2. Name (required)
+3. Description (optional)
+4. Steps - array of _steps_
+5. Variables - a list of variable definitions and initial values that should be associated with this sequence in the system state (optional, see below)
 
-_Sequences_ are linear flows of content, with individual items of the sequence designated _steps_. Each step corresponds to a [card](cards.md). A sequence is nothing more than an ID plus an array of _steps_.
-
-Each _sequence step_ contains the ID of the corresponding card and an optional branch object that provides branching information based on a value obtained from interaction with a user (see details below).
+A _sequence step_ definition consists of:
+1. ID of the card that provides its content (this can be undefined while a sequence is being constructed, but obviously doesn't make sense to leave undefined for actual presentation)
+2. Variables - a list of variable definitions and initial values that should be associated with this step in the system state (optional, see below)
+3. Branch - a list of branches that may be taken from this step based on a value obtained from the user (optional, see below)
 
 The _state_ of the system consists of a few global variables that track the current position and history, individual namespaces for each sequence and step that may be used by a flow, and shared-namespaces area where flows may create and share variables. The state is immutable - it may only be changed by creating and dispatching _actions_ (see details below).
+
+## The System State
+The system state is stored as a single immutable object that may be modified via _actions_. The object is a map containing the following keys:
+* global - all system-global values are stored here
+* sequences - a map of namespaces corresponding to individual sequences (keyed by ID)
+* steps - a map of namespaces corresponding to individual cards (keyed by sequence ID + index))
+* named - a map of named shared namespaces that may be created by variable definitions in sequences or steps
+
+### Actions
+All changes to system state occur via _actions_. An action is simply an object containing the action type and any parameters needed by the action. Actions are dispatched using _action creators_, a set of functions that are made available to the system. As a concrete example, an input from a user may be used to set the value of a variable in the sequence namespace. The action would be something like:
+
+```json
+ {
+    type: SET_SEQUENCE_VARIABLE,
+    args: {
+        sequenceId: 12,
+        variableName: "name",
+        variableValue: "Rahim"
+    }
+ }
+```
+This might be actually called using a function like _setSequenceVariable(12, "name", "Rahim")_.
 
 ## Branches
 A _branch_ associates a value obtained from the user with a step ID to branch to. There are a couple of obvious branch types:
