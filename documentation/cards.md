@@ -1,19 +1,47 @@
 # Cards
 A card consists of the following fields:
 
-1. title
-2. body - content of the card; see below for how presentation is determined
-3. image - the URL of an image
-4. link - a valid hyperlink
-5. meta - a JSON object that stores information for editing and processing the card. Examples include:
+* ID (string or number) - a unique identifier that allows the card to be retrieved from a card provider 
+* Type (string) - used to indicate to tools that use cards what content and capabilities the card provides (see below)
+* Attributes (json) - key/value pairs that extend the content of the card (below) 
+* body (string) - content of the card; see below for how presentation is determined
+* meta (json) - additional information for interpreting, editing and processing the card. Examples include:
   1. Content type and required preprocessors
   2. Variables
   4. Link to custom CSS
-6. Group tag/ID (optional) - allows a set of cards to be grouped together for easier retrival (e.g., CBE cardsets)
 
-In the simplest case, the card body is simply a block of plain text, Markdown or HTML that is to be interpreted by a presentation component that uses it. 
+## Card Types
 
-However, in order to offer truly interactive story flows, we need to be able to use input and output controls in the body of the card. These are described in the section on [card plugins](plugins.md).
+The main purpose of the card type is to allow external tools to know what kind of content and attributes to expect.
+
+The default card type is _unspecified_, which just means that no specific information about the content of the card is being conveyed (but of course the system using the card can store whatever content and attributes it likes). Typically, though, such a card will have a body that is just a block of plain text, Markdown or HTML that is to be interpreted by a presentation component that uses it and the attributes section will probably contain only common attributes like _image_ or _link_.
+
+Here are a few examples of other types we might create:
+
+* _question-multiple-choice_ - This would have an array of options and associated links in the attributes,and optionally the question itself.
+* _question-numeric-range_ - This might store the name of an input variable, an array of ranges and associated links, and optionally the question itself.
+* _simple-slide_ - This might be a standard format for a simple presentation slide. It might use only common atributes like _title_ and _image_, along with the body for the main slide content.
+
+The specific types will be determined and managed by the external system using the cards.
+
+## Attributes
+Attributes are key:value pairs that provide additional structured card content that may be used, sometimes based on the card type, by a presenter. 
+
+### Common Attributes 
+A few attributes are common across many card types. These include:
+
+* title (string)
+* image (url) - the URL of an image
+* link (url) - a valid hyperlink
+* group (string) - a tag or ID that allows a set of cards to be grouped together for easier retrieval (e.g., CBE cardsets)
+
+### Special Attributes
+As noted above, custom card types are likely to use the attributes to store additional type-specific information, such as the questions and answers/links for or ranges/links above.
+
+## Card Plugins
+In order to offer truly interactive story flows, we need to be able to use interactive controls inside the content (body) of a card. Examples might include radio buttons for selecting the answer to a question, links that tie into the system using the cards, and text inputs to get information like a user's name or some value (such as home tax value). We need controls for output as well - if someone inputs their name, we will need controls on later cards to show that name based on the variable we stored from the input. 
+
+These capabilities are provided by card "plugins", bits of functionality that are associated with the external system using hte cards. These are described in the section on [card plugins](plugins.md).
 
 ## Card Provider
 

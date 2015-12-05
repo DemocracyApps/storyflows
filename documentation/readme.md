@@ -1,7 +1,7 @@
 # StoryFlows
-This is the design documentation for StoryFlows. For the time being it is a place to work through the design before writing initial version of the various bits, so it will change often and may be ahead of or behind any actual code in this project.
+This is the design documentation for StoryFlows. For the time being it is a place to work through the design before writing initial versions of the various bits, so it will change often and may be ahead of or behind any actual code in this project.
 
-The code part of the project is a skeleton of a React+Redux application that we'll use as the basis for building this out (it was just copied from the new [cbe-client](https://github.com/DemocracyApps/cbe-client)).
+At this point, the code part of the project is a skeleton of a React+Redux application that we'll use as the basis for building this out (it was just copied from the new [cbe-client](https://github.com/DemocracyApps/cbe-client)).
 
 ## Basic Concepts
 
