@@ -24,19 +24,8 @@ Any user interaction on a card does one of two things: save a variable value or 
 My feeling is that we ensure that every control does one or the other, but not both (i.e., if you hit return in a text field, it will store the value, but will not cause an advance to the next card since there may be ambiguity if we have both a next card and a branch that, e.g., allows a user to explore something more deeply).
 
 So any control embedded into the content of a card
-First, we need to distinguish between what I'll call "flow" actions and "embedded" actions. 
 
-A flow action is one that is associated with the current and previous positions in the overall flow. If I am in the middle of a sequence, I should have previous and next buttons, regardless of the content of the card (of course the browser back button should work as well). An embedded action is one that is associated with a control that is part of the card content.
-
-One thing to be careful of is not allowing any default action from, say, a user hitting return in an input field if there is any ambiguity about where they could go next. Thus, if I have a field to input my name and a dropdown to select a branch destination and a card following this one in the sequence, then entering my name and hitting return should not trigger an advance since it's not clear whether I intend to proceed to the next in the sequence or go deep by branching (obviously the prompt for branching should indicate that you are leaving the sequence). On the other hand, it's frustrating if return _doesn't_ work if advancing is the only choice. However, I'd rather users were slightly frustrated than confused about where they end up.
-
-
-
-
-
-
-
-
+-- THIS IS IN PROGRESS. CONTENT BELOW IS OLD -- 
 
 Creating input controls that trigger actions is straightforward since we can use normal HTML elements and tie events there to the action creators in the system. As standard methods for doing this are developed, we can add plugins to the [card editor](cardeditor) to handle them in the WYSIWYG interface. Early on we'll need to figure out how best to represent actions for branching versus just going to the next step if they are both present. For an initial implementation of the Asheville CIP storyflow, however, simple links with action triggers will suffice.
 
