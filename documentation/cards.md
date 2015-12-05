@@ -3,10 +3,10 @@ A card consists of the following fields:
 
 * ID (string or number) - a unique identifier that allows the card to be retrieved from a card provider 
 * Type (string) - used to indicate to tools that use cards what content and capabilities the card provides (see below)
-* Attributes (json) - key/value pairs that extend the content of the card (below) 
-* body (string) - content of the card; see below for how presentation is determined
-* meta (json) - additional information for interpreting, editing and processing the card. Examples include:
-  1. Content type and required preprocessors
+* Attributes (json) - key/value pairs that extend the content of the card (see below) 
+* Body (string) - content of the card, typically HTML or Markdown, possibly with plugin controls (see below)
+* Meta (json) - additional information for interpreting, editing and processing the card. Examples might include:
+  1. Content type (beyond what is expected based on card type) and required preprocessors
   2. Variables
   4. Link to custom CSS
 
@@ -39,13 +39,13 @@ A few attributes are common across many card types. These include:
 As noted above, custom card types are likely to use the attributes to store additional type-specific information, such as the questions and answers/links for or ranges/links above.
 
 ## Card Plugins
-In order to offer truly interactive story flows, we need to be able to use interactive controls inside the content (body) of a card. Examples might include radio buttons for selecting the answer to a question, links that tie into the system using the cards, and text inputs to get information like a user's name or some value (such as home tax value). We need controls for output as well - if someone inputs their name, we will need controls on later cards to show that name based on the variable we stored from the input. 
+In order to offer truly interactive story flows, we need to be able to use interactive controls inside the content (body) of a card. Examples might include radio buttons for selecting the answer to a question, links that tie into the system using the cards, and text inputs to get information like a user's name or some value (such as home tax value). We need controls for output as well - if someone inputs their name, we will need controls on later cards to display that name based on the variable we stored from the input. 
 
 These capabilities are provided by card "plugins", bits of functionality that are associated with the external system using hte cards. These are described in the section on [card plugins](plugins.md).
 
 ## Card Provider
 
-Cards should be provided to the StoryFlows system from an outside service, either the current data server or, more likely, by a separate card server service. In any case, it should be separate from the CBE.
+Cards should be provided to the StoryFlows system from an outside service, either the current data server or, more likely, by a separate card server service. In any case, it should be separate from the CBE. The provider should allow the usual CRUD operations on whole cards and ideally should allow individual fields to be updated as well.
 
 We also need a local version that lets a developer (or presenter) create a story flow and cards on a laptop without the need for any server components.
 
