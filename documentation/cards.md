@@ -36,7 +36,7 @@ A few attributes are common across many card types. These include:
 * group (string) - a tag or ID that allows a set of cards to be grouped together for easier retrieval (e.g., CBE cardsets)
 
 ### Special Attributes
-As noted above, custom card types are likely to use the attributes to store additional type-specific information, such as the questions and answers/links for or ranges/links above.
+As noted above, custom card types are likely to use the attributes to store additional type-specific information, such as the questions and answers/links for or ranges/links above. We probably want to use as small a set of standard attributes as possible here. For example, in both these cases we should store in a _branches_ attribute so that the Flow presenter and editor don't need special logic for branching based on the type of card.
 
 ## Card Plugins
 In order to offer truly interactive story flows, we need to be able to use interactive controls inside the content (body) of a card. Examples might include radio buttons for selecting the answer to a question, links that tie into the system using the cards, and text inputs to get information like a user's name or some value (such as home tax value). We need controls for output as well - if someone inputs their name, we will need controls on later cards to display that name based on the variable we stored from the input. 
