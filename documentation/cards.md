@@ -1,11 +1,11 @@
 # Cards
 A card consists of the following fields:
 
-* ID (string or number) - a unique identifier that allows the card to be retrieved from a card provider 
-* Type (string) - used to indicate to tools that use cards what content and capabilities the card provides (see below)
-* Attributes (json) - key/value pairs that extend the content of the card (see below) 
-* Body (string) - content of the card, typically HTML or Markdown, possibly with plugin controls (see below)
-* Meta (json) - additional information for interpreting, editing and processing the card. Examples might include:
+* ID (string or number | required | unique) - an identifier that allows the card to be retrieved from a card provider 
+* Type (string | required) - used to indicate to tools that use cards what content and capabilities the card provides (see below)
+* Attributes (json | optional) - key/value pairs that extend the content of the card (see below) 
+* Body (string | optional) - content of the card, typically HTML or Markdown, possibly with plugin controls (see below)
+* Meta (json | optional) - additional information for interpreting, editing and processing the card. Examples might include:
   1. Content type (beyond what is expected based on card type) and required preprocessors
   2. Variables
   4. Link to custom CSS

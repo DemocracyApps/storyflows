@@ -1,32 +1,21 @@
 # Flow
 ## Introduction
-A StoryFlows flow is a collection of _sequences_ connected by branches and jumps. This together with a _state_ space comprises an entire StoryFlows system.
+A StoryFlows flow is a collection of _sequences_ that are interconnected by branches and jumps embedded in the cards that comprise the individual steps of a sequence. The collection of sequences and cards together with a _state_ space make up the StoryFlows system.
 
-## Sequences and Steps
-### Sequence
-A sequence is a linear flow of content, with individual items of the sequence designated _sequence steps_. Each step corresponds to a [card](cards.md). A sequence consists of:
+## Sequences
+A sequence is a linear flow of content comprised of an array of [cards](cards.md) and definitions of state variables associated with the sequence. The fields describing a sequence are:
 
-1. ID (required, unique)
-2. Name (required)
-3. Description (optional)
-4. Steps - array of _steps_
-5. Variables - a list of variable definitions and initial values that should be associated with this sequence in the system state (optional, see below)
-
-### Sequence Step
-A sequence step definition consists of:
-
-1. ID of the card that provides its content (this can be undefined while a sequence is being constructed, but obviously doesn't make sense to leave undefined for actual presentation)
-2. Variables - a list of variable definitions and initial values that should be associated with this step in the system state (optional, see below)
-3. Branch - this optional structure associates a value obtained from the user (see input controls) with a step to branch to. There are at least two branch types:
-  * _KeyMap_ - this is a simple set of value-to-step pairs, where values probably map to a set of choices a user may make at this step.
-  * _RangeMap_ - this is a set of rage-to-step pairs that associate a numerical range of some input value with a step ID to move to. If the value maps to more than one of the ranges, the first match is used. The value is probably one input by a user as part of the interaction with the associated card.
+* ID (string or number | required | unique)
+* Name (string | required)
+* Description (string | optional)
+* Cards (array of string or number | may be empty) - array of card IDs
+* Variables (json | optional) - a list of variable definitions and initial values that should be associated with this sequence in the system state (optional, see below)
 
 ## The System State
-The system state is used by the [Presenter](presenter.md), but it's structure is defined as part of the Flow module. It stores the current state of a StoryFlows presentation in several namespaces:
+The system state is used by the [Presenter](presenter.md) component, but its structure is defined as part of the Flow module. It stores the current state of a StoryFlows presentation in several namespaces:
 
 * global - all system-global values are stored here, e.g., the current position
 * sequences - a map of namespaces where individual sequences may create and store values
-* steps - a map of namespaces where individual steps may create and store values
 * named - a map of named shared namespaces that may be created by variable definitions in sequences or steps
 
 The system state is a single immutable object that may only be modified via _actions_. 
@@ -50,16 +39,15 @@ In the native implementation, we use <a href="https://github.com/rackt/redux" ta
 
 #### List of Actions
 
-* __NEXT__: Advance to the next step in the current sequence
-* __PREVIOUS__: Advance to the previous step in the current sequence (or __RETURN__ if we are at the first step)
-* __FIRST__: Rewind to the first step in the current sequence
-* __LAST__: Advance to the last step in the current sequence
+* __NEXT__: Advance to the next card in the current sequence
+* __PREVIOUS__: Advance to the previous card in the current sequence (or __RETURN__ if we are at the first card)
+* __FIRST__: Rewind to the first card in the current sequence
+* __LAST__: Advance to the last card in the current sequence
 * __RESTART__: Go back to the very beginning of the StoryFlow flow
-* __RETURN__: Go back to the last branch step (or __RESTART__ if there wasn't one)
-* __BRANCH (value)__: Branch to another sequence based on the provided value
-* __JUMP (card_id)__: Jump to the specified sequence
+* __RETURN__: Go back to the last card from which we branched or jumped to the current sequence (or __RESTART__ if there wasn't one)
+* __JUMP (sequence_id)__: Jump to the specified sequence
+* __BRANCH (value)__: Branch to another sequence based on the provided value (not sure we need this ... we may just use jump)
 * __SET_SEQUENCE_VARIABLE__: set the value of a state variable associated with this sequence
-* __SET_STEP_VARIABLE__: set the value of a state variable associated with this step
 * __SET_NAMESPACE_VARIABLE__: set the value of a state variable associated with a shared namespace
 
 

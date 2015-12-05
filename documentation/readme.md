@@ -18,7 +18,7 @@ The StoryFlows system is composed of several simple pieces: _cards_ that hold th
 * [Card Plugins](plugins.md) - Plugins that allow user interaction and dynamic content in cards
 * [Card Editor](cardeditor.md) - The card authoring component
 * [Flow Editor](floweditor.md) - The flow authoring component
-* [Presenter](presenter.md) - The component that displays a story and interacts with a user
+* [Presenter](presenter.md) - StoryFlows proper, the component that displays a story and interacts with a user
 
 Note that this system can be used to create a variety of tools, from simple presentation software to screening decision-trees creators. Our goal at the beginning is to create a minimal system, but to have these broader potential applications in mind.
 
