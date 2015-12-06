@@ -46,7 +46,7 @@ In the native implementation, we use <a href="https://github.com/rackt/redux" ta
 * __RESTART__: Go back to the very beginning of the StoryFlow flow
 * __RETURN__: Go back to the last card from which we branched or jumped to the current sequence (or __RESTART__ if there wasn't one)
 * __JUMP (sequence_id)__: Jump to the specified sequence
-* __BRANCH (value)__: Branch to another sequence based on the provided value (not sure we need this ... we may just use jump)
+* __BRANCH (value)__: Branch to another sequence based on the provided value
 * __SET_VARIABLE_VALUE__: set the value of a state variable associated with this sequence or a shared namespace
 
 
