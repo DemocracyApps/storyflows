@@ -35,7 +35,7 @@ Here's a card asking for the tax value of a user's house:
         "type":"unspecified",
         "body": "<p>Enter the tax value of your property: <input class='sf-plugin form-control' type='text' 
                                                                  name='common:tax_value'
-                                                                 validation='numeric|min:0' value='{!! tax_value !!}'
+                                                                 validation='numeric|min:0' value='{!! common:tax_value !!}'
                                                                  onchange='sf_set_variable_value()'>.</p>",
         "attributes": {
             "input_required": ["common:tax_value"]
