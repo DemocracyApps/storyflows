@@ -14,12 +14,21 @@ In this case, _first_name_ would refer to a variable with that name in the curre
 ```html
     <p>Current page: {!! common:current_page !!}.</p>
 ```
+which would access the _current_page_ variable in the shared namespace called _common_. The global namespace might just be done with a colon without a name prefix, e.g.,
+```html
+    <p>Current sequence: {!! :current_sequence !!}
+```
+although I'm open to other suggestions on that and on the escape sequence used for interpolations.
+
 ## Input Plugins
 
+A StoryFlows _input_ plugin is a normal HTML control (input, select, button, textarea, etc.) that uses a Javascript event handler to trigger actions in StoryFlows. We may consider extending to custom elements in the future, but I don't see a need initially.
+
+To keep things simple, a plugin can trigger one and only one action and so (see [list of actions](flow.md!#list-of-actions)) can only do one of two things: (a) set a variable value in the StoryFlows state or (b) trigger an action that advances the story to some other step. Of course, given that these are the only things the current 
 
 
 
-2. A StoryFlows _input_ plugin is a normal HTML control that connects to StoryFlows information and actions via Javascript event handlers. We may consider extending to custom elements in the future, but I don't see a need initially.
+
 
 
 ## Discussion of Approach
