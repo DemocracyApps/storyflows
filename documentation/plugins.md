@@ -1,6 +1,26 @@
-# Card Plugins
+# StoryFlows Card Plugins
 
 In order to present anything other than a simple linear sequence of slides, we need to be able to interact with the user around the content. In effect, we need to be able to place elements within the card body that are able to take user input and trigger actions, or to show dynamic data. To do this, we need to connect the flow presenter portion of StoryFlows to the content of cards, whether for input or output.
+
+I've struggled quite a bit with the design of this. Would love to discuss anything here that seems overly complex or that is likely to create problems down the road.
+
+## Interpolations (Output Plugins)
+
+Input and output sides seem to me to be quite different. As far as I can think, _output_ "plugins" are nothing more than a way to insert a variable value from the StoryFlows state into the HTML, perhaps into the content (e.g., inserting a person's name) or as parameters (e.g., element attributes or URL parameters). They don't really deserve the name plugin, I'm more inclined to call them _interpolations_, but not sure where else to document them. In any case, for the time being, my call would be just to do something like this:
+```html
+    <p>Hello, {!! first_name !!}, how are you?</p>
+```
+In this case, _first_name_ would refer to a variable with that name in the current StoryFlows sequence state. To access a shared namespace, the variable name would be prefixed thus:
+```html
+    <p>Current page: {!! common:current_page !!}.</p>
+```
+## Input Plugins
+
+
+
+
+2. A StoryFlows _input_ plugin is a normal HTML control that connects to StoryFlows information and actions via Javascript event handlers. We may consider extending to custom elements in the future, but I don't see a need initially.
+
 
 ## Discussion of Approach
 
