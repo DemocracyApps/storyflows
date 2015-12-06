@@ -47,8 +47,7 @@ In the native implementation, we use <a href="https://github.com/rackt/redux" ta
 * __RETURN__: Go back to the last card from which we branched or jumped to the current sequence (or __RESTART__ if there wasn't one)
 * __JUMP (sequence_id)__: Jump to the specified sequence
 * __BRANCH (value)__: Branch to another sequence based on the provided value (not sure we need this ... we may just use jump)
-* __SET_SEQUENCE_VARIABLE__: set the value of a state variable associated with this sequence
-* __SET_NAMESPACE_VARIABLE__: set the value of a state variable associated with a shared namespace
+* __SET_VARIABLE_VALUE__: set the value of a state variable associated with this sequence or a shared namespace
 
 
 

@@ -24,12 +24,53 @@ although I'm open to other suggestions on that and on the escape sequence used f
 
 A StoryFlows _input_ plugin is a normal HTML control (input, select, button, textarea, etc.) that uses a Javascript event handler to trigger actions in StoryFlows. We may consider extending to custom elements in the future, but I don't see a need initially.
 
-To keep things simple, a plugin can trigger one and only one action and so (see [list of actions](flow.md#list-of-actions)) can only do one of two things: (a) set a variable value in the StoryFlows state or (b) trigger an action that advances the story to some other step. Of course, given that these are the only things the current 
+To keep things simple, a plugin can trigger one and only one action and so (see [list of actions](flow.md#list-of-actions)) can only do one of two things: (a) set a variable value in the StoryFlows state or (b) trigger an action that advances the story to some other step. This implies a straightforward relationship between the control type and the type of action it triggers.
 
+Let's look at a couple examples. 
 
+Here's a card asking for the tax value of a user's house:
 
+```json
+    {
+        "type":"unspecified",
+        "body": "<p>Enter the tax value of your property: <input class="sf-plugin form-control" type='text' 
+                                                                 name='common:tax_value'
+                                                                 validation='numeric|min:0' value='{!! tax_value !!}'
+                                                                 onchange='set_variable_value()'>.</p>",
+        "attributes": {
+            "input_required": ["common:tax_value"]
+        }
+    }
+```
+No card attributes are required for the basic plugin since this depends only on a standard action-creator function and a state variable defined by the StoryFlows system, but I've added one for validation. Some validation rules should be applied at the time the user makes a change - the specification for that (the _validation_ attribute) is inspired by the [validation rules used in Laravel](http://laravel.com/docs/5.1/validation#available-validation-rules). To _require_ an input before proceeding is a bit more work. We could parse through any _sf-plugins_ and look for _required_ in the validation attribute, but we could also just put the information in the attributes. Here _input_required_ is an array of variable names that must be set before proceeding. We can place error messages at the appropriate spots by looking for elements with the right _name_ attribute, or we can just put it in a more generic place.
 
+Note that the _set_variable_value_ action creator will use the input name attribute to determine the variable to set.
 
+Now let's consider a branch case.
+
+```json
+    {
+        "type":"question-multiple-choice",
+        "body": "<p>Select which area you would like to explore:</p>
+                 <select name='selected_area' class='sf-plugin form-control' onchange='set_variable_value()'>
+                    <option value="safety" selected>Public Safety</option>
+                    <option value="admin" selected>Administration</option>
+                    <option value="parks" selected>Parks &amp; Rec</option>
+                    <option value="other" selected>Other</option>
+                 </select><br>
+                 <button class='sf-plugin btn btn-primary' onclick='sf_branch()'>Explore</button>",
+        "attributes": {
+            "answers": {
+                "selected_area":[
+                    {"value":"safety", "destination":{"type":"branch", "sequence":21, "step":0}},
+                    {"value":"admin",  "destination":{"type":"branch", "sequence":21, "step":0}},
+                    {"value":"parks",  "destination":{"type":"branch", "sequence":21, "step":0}},
+                    {"value":"other",  "destination":{"type":"url",  "url":"http://www.ashevillenc.gov/Departments/CapitalProjectsManagement.aspx"}}
+                ]
+            }
+        }
+    }
+```
 
 ## Discussion of Approach
 
