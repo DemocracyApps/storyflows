@@ -26,17 +26,17 @@ A StoryFlows _input_ plugin is a normal HTML control (input, select, button, tex
 
 To keep things simple, a plugin can trigger one and only one action and so (see [list of actions](flow.md#list-of-actions)) can only do one of two things: (a) set a variable value in the StoryFlows state or (b) trigger an action that advances the story to some other step. This implies a straightforward relationship between the control type and the type of action it triggers.
 
-Let's look at a couple examples. 
+Let's look at a couple examples to see how we would actually represent these.
 
 Here's a card asking for the tax value of a user's house:
 
 ```json
     {
         "type":"unspecified",
-        "body": "<p>Enter the tax value of your property: <input class="sf-plugin form-control" type='text' 
+        "body": "<p>Enter the tax value of your property: <input class='sf-plugin form-control' type='text' 
                                                                  name='common:tax_value'
                                                                  validation='numeric|min:0' value='{!! tax_value !!}'
-                                                                 onchange='set_variable_value()'>.</p>",
+                                                                 onchange='sf_set_variable_value()'>.</p>",
         "attributes": {
             "input_required": ["common:tax_value"]
         }
@@ -44,7 +44,7 @@ Here's a card asking for the tax value of a user's house:
 ```
 No card attributes are required for the basic plugin since this depends only on a standard action-creator function and a state variable defined by the StoryFlows system, but I've added one for validation. Some validation rules should be applied at the time the user makes a change - the specification for that (the _validation_ attribute) is inspired by the [validation rules used in Laravel](http://laravel.com/docs/5.1/validation#available-validation-rules). To _require_ an input before proceeding is a bit more work. We could parse through any _sf-plugins_ and look for _required_ in the validation attribute, but we could also just put the information in the attributes. Here _input_required_ is an array of variable names that must be set before proceeding. We can place error messages at the appropriate spots by looking for elements with the right _name_ attribute, or we can just put it in a more generic place.
 
-Note that the _set_variable_value_ action creator will use the input name attribute to determine the variable to set.
+Note that the _set_variable_value_ action creator will use the input _name_ attribute to determine which variable to set.
 
 Now let's consider a branch case.
 
@@ -52,15 +52,15 @@ Now let's consider a branch case.
     {
         "type":"question-multiple-choice",
         "body": "<p>Select which area you would like to explore:</p>
-                 <select name='selected_area' class='sf-plugin form-control' onchange='set_variable_value()'>
-                    <option value="safety" selected>Public Safety</option>
-                    <option value="admin" selected>Administration</option>
-                    <option value="parks" selected>Parks &amp; Rec</option>
-                    <option value="other" selected>Other</option>
+                 <select name='selected_area' class='sf-plugin form-control' onchange='sf_set_variable_value()'>
+                    <option value='safety' selected>Public Safety</option>
+                    <option value='admin'>Administration</option>
+                    <option value='parks'>Parks &amp; Rec</option>
+                    <option value='other'>Other</option>
                  </select><br>
                  <button class='sf-plugin btn btn-primary' onclick='sf_branch()'>Explore</button>",
         "attributes": {
-            "answers": {
+            "branches": {
                 "selected_area":[
                     {"value":"safety", "destination":{"type":"branch", "sequence":21, "step":0}},
                     {"value":"admin",  "destination":{"type":"branch", "sequence":21, "step":0}},
@@ -71,45 +71,11 @@ Now let's consider a branch case.
         }
     }
 ```
+When the user presses the __Explore__ button, the _sf_branch()_ routine will look for the _selected_area_ array in the _branches_ attribute, pick the entry corresponding to the selected option value, then trigger the jump to the appropriate destination, which can be an internal branch to a sequence+step or to an external URL. Note that the use of a hash for _branches_ allows us to have multiple sets of selections for branches.
 
-## Discussion of Approach
+__Note__: This does raise the question for me as to whether the _type_ field for cards is really needed ... let's discuss.
 
-I'm struggling with this one.  On this iteration, I'm going to take on various questions and try to answer them as a way of creating a more specific design.
+## Editing Cards
+The representations above are straightforward to do as long as we are manually entering things, but the separation of the HTML control specification and the branches attribute is awkward (though I think it's important to keep them separated in the actual representation so that the Flow editor doesn't have to go digging into the HTML to figure out branches). As noted in the [issue discussion](https://github.com/DemocracyApps/storyflows/issues/1), however, we can always pre- and post-process the content when loading into and saving from the editor to generate a version that better matches its requirements. For now, we can certainly edit the HTML inside TinyMCE (though we may need to configure it to allow some additional attributes) and this has the advantage that the controls will show up properly as what they are in visual editor.
 
-### 1. How do we represent interactive elements in a card?
-We need to figure out both out to represent interactive elements and the parameters associated with them in the card in a way that not only allows us to display them and interact with the user, but also to enable easy-to-use tools for creating and editing them (at least in a relatively near future version). I think there are 3 basic perspectives that we need to account for: the StoryFlows _Presenter_, the _Card Editor_ and the _Flow Editor_.
-
-__Presenter__: It actually doesn't much matter whether we have all the information encoded in the parameters of some special element in the body or we have to match some control in the body to some set of attributes. Either way, we'll need to generate code to display the controls and trigger actions appropriately. I think this perspective is not determinative.
-
-__Card Editor__: From this perspective, it's definitely easier to keep all the information about a control together, i.e., not to separate the "HTML" and the attributes. That makes it much easier to write a TinyMCE plugin, for example since all the information is just stored in the field being edited. Of course we can always strip it out again on save, but there needs to be a good reason to do this.
-
-__Flow Editor__: This perspective demands the opposite. We'd much rather not have to peer inside the body of the card. If we know that the card is a branch type, then the easiest thing to do is, say, to look for an attribute called "branches" and then we have everything we need to properly display and open up the branches. As soon as we have to look for a special element, we have the problem of what to do if we (a) can't find one or (b) find more than one.
-
-#### Answer
-I think we end up with a kind of compromise here. In terms of what is actually stored in the card, the _Flow Editor_ perspective needs to win. However, as I noted in the [issue discussion](https://github.com/DemocracyApps/storyflows/issues/1), we can always pre- and post-process the content when loading into and saving from the editor to generate a version that better matches its requirements.
-
-### 2. How do we actually implement the actions associated with controls?
-Any user interaction on a card does one of two things: save a variable value or advance the story to some next step.
-
-My feeling is that we ensure that every control does one or the other, but not both (i.e., if you hit return in a text field, it will store the value, but will not cause an advance to the next card since there may be ambiguity if we have both a next card and a branch that, e.g., allows a user to explore something more deeply).
-
-So any control embedded into the content of a card
-
--- THIS IS IN PROGRESS. CONTENT BELOW IS OLD -- 
-
-Creating input controls that trigger actions is straightforward since we can use normal HTML elements and tie events there to the action creators in the system. As standard methods for doing this are developed, we can add plugins to the [card editor](cardeditor) to handle them in the WYSIWYG interface. Early on we'll need to figure out how best to represent actions for branching versus just going to the next step if they are both present. For an initial implementation of the Asheville CIP storyflow, however, simple links with action triggers will suffice.
-
-Still to be figured out is how to implement _output_ controls. 
-
-Finally, we need to figure out how to embed more complex elements, such as a visualization or table that depends on the values of some parameters in the state.
-
-There are a couple ways we can approach representing output controls and complex components that we want to embed. One is to use some sort of escape that TinyMCE ignores and to dynamically generate the appropriate code when we are preprocessing the card (e.g., {!! _code that only StoryFlows interprets_ !!}). The other is to introduce them through new non-HTML element types, e.g., something like:
-
-```html
-    <div>
-        <p>This is a paragraph containing an output control with a 
-           value = <StoryFlowsValue type="sequence" name="userName"/>.</p>
-    </div>
-```
-This is probably the best way to go, but we need to think through where we register the definitions of such elements, how we extend TinyMCE to allow them, etc.
 
