@@ -18,11 +18,13 @@ Here's a card asking for the tax value of a user's house:
                                                                  validation='numeric|min:0' value='{!! common:tax_value !!}'
                                                                  onchange='sf_set_variable_value()'>.</p>",
         "attributes": {
-            "input_required": ["common:tax_value"]
+            "validation": {
+                "input_required": ["common:tax_value"]
+            }
         }
     }
 ```
-No card attributes are required for the basic plugin since this depends only on a standard action-creator function and a state variable defined by the StoryFlows system, but I've added one for validation. Some validation rules should be applied at the time the user makes a change - the specification for that (the _validation_ attribute) is inspired by the [validation rules used in Laravel](http://laravel.com/docs/5.1/validation#available-validation-rules). To _require_ an input before proceeding is a bit more work. We could parse through any _sf-plugins_ and look for _required_ in the validation attribute, but we could also just put the information in the attributes. Here _input_required_ is an array of variable names that must be set before proceeding. We can place error messages at the appropriate spots by looking for elements with the right _name_ attribute, or we can just put it in a more generic place.
+No card attributes are required for the basic plugin since this depends only on a standard action-creator function and a state variable defined by the StoryFlows system, but I've added one for validation. Some validation rules should be triggers as soon as a user makes a change (e.g., the requirement for positive numeric input reflected in _validation_ attribute of the _input_ element, inspired by the [validation rules used in Laravel](http://laravel.com/docs/5.1/validation#available-validation-rules)). To require that the user input something before proceeding is a bit more work - I think the simplest approach is just to add into the card attributes, as here. We can place error messages at the appropriate spots by looking for elements with the right _name_ attribute, or we can just put it in a more generic place on the card.
 
 Note that the _sf_set_variable_value_ action creator will use the input _name_ attribute to determine which variable to set.
 

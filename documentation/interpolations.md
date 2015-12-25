@@ -1,4 +1,4 @@
-# Card Interpolations (Output Plugins)
+# Card Output Interpolations 
 
 In order to support dynamic content, we need a way to insert a variable value from the StoryFlows state into the HTML, perhaps into the content (e.g., inserting a person's name) or as parameters (e.g., element attributes or URL parameters). 
 
