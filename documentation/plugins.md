@@ -44,7 +44,7 @@ Here's a card asking for the tax value of a user's house:
 ```
 No card attributes are required for the basic plugin since this depends only on a standard action-creator function and a state variable defined by the StoryFlows system, but I've added one for validation. Some validation rules should be applied at the time the user makes a change - the specification for that (the _validation_ attribute) is inspired by the [validation rules used in Laravel](http://laravel.com/docs/5.1/validation#available-validation-rules). To _require_ an input before proceeding is a bit more work. We could parse through any _sf-plugins_ and look for _required_ in the validation attribute, but we could also just put the information in the attributes. Here _input_required_ is an array of variable names that must be set before proceeding. We can place error messages at the appropriate spots by looking for elements with the right _name_ attribute, or we can just put it in a more generic place.
 
-Note that the _set_variable_value_ action creator will use the input _name_ attribute to determine which variable to set.
+Note that the _sf_set_variable_value_ action creator will use the input _name_ attribute to determine which variable to set.
 
 Now let's consider a branch case.
 
@@ -72,8 +72,6 @@ Now let's consider a branch case.
     }
 ```
 When the user presses the __Explore__ button, the _sf_branch()_ routine will look for the _selected_area_ array in the _branches_ attribute, pick the entry corresponding to the selected option value, then trigger the jump to the appropriate destination, which can be an internal branch to a sequence+step or to an external URL. Note that the use of a hash for _branches_ allows us to have multiple sets of selections for branches.
-
-__Note__: This does raise the question for me as to whether the _type_ field for cards is really needed ... let's discuss.
 
 ## Editing Cards
 The representations above are straightforward to do as long as we are manually entering things, but the separation of the HTML control specification and the branches attribute is awkward (though I think it's important to keep them separated in the actual representation so that the Flow editor doesn't have to go digging into the HTML to figure out branches). As noted in the [issue discussion](https://github.com/DemocracyApps/storyflows/issues/1), however, we can always pre- and post-process the content when loading into and saving from the editor to generate a version that better matches its requirements. For now, we can certainly edit the HTML inside TinyMCE (though we may need to configure it to allow some additional attributes) and this has the advantage that the controls will show up properly as what they are in visual editor.

@@ -3,9 +3,9 @@ All of the content in a StoryFlow is contained in _cards_, which are just blobs 
 
 A card consists of the following fields:
 
-* ID (string or number | required | unique) - an identifier that allows the card to be retrieved from a card provider 
-* Attributes (json | optional) - key/value pairs that extend the content of the card with anything from images to input validation information (see below) 
+* ID (string or number | required | unique) - an identifier that allows the card to be retrieved from a card provider
 * Body (string | optional) - content of the card, typically HTML or Markdown, possibly with plugin controls (see below)
+* Attributes (json | optional) - key/value pairs that extend the content of the card with anything from images to input validation information (see below) 
 * Meta (json | optional) - additional information for interpreting, editing and processing the card. It's possible this can be taken care of in the attributes section, but leaving for now. A few possible examples:
   1. Content type (beyond what is expected based on card type) and required preprocessors
   2. Variables
