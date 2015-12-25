@@ -15,7 +15,8 @@ The StoryFlows system is composed of several simple pieces: _cards_ that hold th
 
 * [Cards](cards.md) - The StoryFlow content
 * [Flow](flow.md) - The StoryFlow structure, which refers to cards
-* [Card Plugins](plugins.md) - Plugins that allow user interaction and dynamic content in cards
+* [Card Input Plugins](plugins.md) - Plugins that allow user interaction and dynamic content in cards
+* [Card Output Interpolations](interpolations.md) - A mechanism for inserting dynamic content into displayed cards.
 * [Card Editor](cardeditor.md) - The card authoring component
 * [Flow Editor](floweditor.md) - The flow authoring component
 * [Presenter](presenter.md) - StoryFlows proper, the component that displays a story and interacts with a user

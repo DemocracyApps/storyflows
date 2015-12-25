@@ -15,13 +15,13 @@ A sequence is a linear flow of content comprised of an array of [cards](cards.md
 The system state is used by the [Presenter](presenter.md) component, but its structure is defined as part of the Flow module. It stores the current state of a StoryFlows presentation in several namespaces:
 
 * global - all system-global values are stored here, e.g., the current position
-* sequences - a map of namespaces where individual sequences may create and store values
-* named - a map of named shared namespaces that may be created by variable definitions in sequences or steps
+* sequences - a map of namespaces for variables associated with individual sequences
+* named - a map of named shared namespaces that may be accessed from any sequence.
 
-The system state is a single immutable object that may only be modified via _actions_. 
+We will adhere to the <a href="https://github.com/rackt/redux" target="_blank">Redux</a> approach in which the system state is a single immutable object that may only be modified via _actions_. 
 
 ### Actions
-All changes to system state occur via _actions_. An action is simply an object containing the action type and any parameters needed by the action. Actions are dispatched using _action creators_, a set of functions that are made available to the system. As a concrete example, an input from a user may be used to set the value of a variable in the sequence namespace. The action would be something like:
+All changes to system state occur via _actions_. An action is a plain Javascript object containing the action type and any parameters needed by the action. Actions are dispatched using _action creators_, a set of functions that are made available to the system as properties passed into front-end components. As a concrete example, an input from a user may be used to set the value of a variable in the sequence namespace. The action would be something like:
 
 ```json
  {
@@ -35,7 +35,7 @@ All changes to system state occur via _actions_. An action is simply an object c
 ```
 This might be actually called using a function like _setSequenceVariable(12, "name", "Rahim")_.
 
-In the native implementation, we use <a href="https://github.com/rackt/redux" target="_blank">Redux</a>. The following section details some of the actions which may be triggered.
+The following section details some of the actions which may be triggered.
 
 #### List of Actions
 
